@@ -4,16 +4,24 @@ export default function App() {
     <div>
       <h1>Meu Primeiro Dia</h1>
       <br/>    
-      <Aluno/>
+      <Aluno name="Raoni Cerqueira" dev="FullStack"/>
+      <Aluno name="Tatiana Lima" dev="Frontend"/>
     </div>
 
   )    
 }
 
-function Aluno() {
+function Aluno({ name, dev }) {
   return(
     <>
-      <h2>Bem vindo ao seu primeiro dia de aula!</h2>
+      <h2>Bem vindo {name} ao seu primeiro dia!</h2>
+      <h3 
+      style={{
+        color: "green"
+      }}
+      >
+        {dev}
+      </h3>
       <p>Veja aqui os seus materias</p>
       <button>
         <strong>Clique aqui!</strong>
