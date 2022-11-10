@@ -9,14 +9,14 @@ import Home from './pages/Login'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Admin/>
-  },
-  {
-    path: '/',
     element: <Home/>
   },
   {
-    path: '/',
+    path: '/admin',
+    element: <Admin/>
+  },
+  {
+    path: '/login',
     element: <Login/>
   },
 
