@@ -46,3 +46,9 @@
   line-height: 150%;
   color: #000;
 }
+footer{
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 18px 0;
+}
