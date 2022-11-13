@@ -1,6 +1,6 @@
 import './login.css'
 
-import { logo } from '../../components/Logo'
+import { Logo } from '../../components/Logo'
 
 export default function Login(){
   return(
