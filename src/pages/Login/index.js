@@ -7,7 +7,7 @@ export default function Login(){
     <div className='login-container'>
       <Logo/>
 
-      <form>
+      <form className='form'>
         <input
           type='email'
           placeholder='Digite seu email...'
@@ -19,7 +19,7 @@ export default function Login(){
         />
         <button type='submit'>Acessar</button>
       </form>
-      
+
     </div>
   )
 }
