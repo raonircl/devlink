@@ -4,8 +4,9 @@ import { Logo } from '../../components/Logo'
 
 import { auth } from '../../services/firebaseConnection'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-
 import { useNavigate } from 'react-router-dom'
+
+import { toast } from 'react-toastify'
 
 export default function Login(){
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ export default function Login(){
     e.preventDefault();
   
     if (email ==='' || password === ''){
-      alert('Preencha todos os campos!')
+      toast.error('Preencha todos os campos!')
       return;
     }
 
@@ -25,9 +26,10 @@ export default function Login(){
     signInWithEmailAndPassword(auth, email, password)
       .then(() => { 
         navigate('/admin', { replace: true })
+        toast.success('Permissão concedida!')
       })
       .catch(() => {
-        alert('Usuário não cadastrado!')
+        toast.error('Usuário não cadastrado!')
       })
 
   }
