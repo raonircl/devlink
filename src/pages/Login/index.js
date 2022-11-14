@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import './login.css'
-
 import { Logo } from '../../components/Logo'
+
+import { auth } from '../../services/firebaseConnection'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 export default function Login(){
   const [email, setEmail] = useState("");
@@ -10,8 +12,20 @@ export default function Login(){
   function handleLogin(e) {
     e.preventDefault();
   
-    console.log(email);
-    console.log(password);
+    if (email ==='' || password === ''){
+      alert('Preencha todos os campos!')
+      return;
+    }
+
+    //const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => { 
+        console.log("Usuário logado com sucesso!")
+      })
+      .catch(() => {
+        console.log("Erro ao logar!")
+      })
+
   }
 
   
