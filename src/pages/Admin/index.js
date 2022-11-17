@@ -1,8 +1,10 @@
+import { Header } from "../../components/header"
+
 
 export default function Admin(){
   return(
-    <div>
-      <h1>Página ADMIN</h1>
+    <div className="admin-container">
+      <Header/>
     </div>
   )
 }
