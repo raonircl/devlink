@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Header } from "../../components/header"
 import './admin.css'
 import { Logo } from '../../components/Logo'
@@ -26,6 +26,32 @@ export default function Admin(){
   const [urlInput, setUrlInput] = useState("");
   const [backgroundColorInput, setBackgroundColorInput] = useState("#f1f1f1");
   const [textColorInput, setTextColorInput] = useState("#121212");
+
+  const [links, setLinks] = useState([])
+
+  useEffect(() => {
+
+    const linksRef = collection(db, "links")
+    const queryRef = query(linksRef, orderBy("created", "asc"))
+
+    const unsub = onSnapshot(queryRef, (snapshot) => {
+      let lista = [];
+
+      snapshot.forEach((doc) => {
+        lista.push({
+          id: doc.id,
+          name: doc.data().name,
+          url: doc.data().url,
+          bg: doc.data().background,
+          color: doc.data().color
+        })  
+      })
+
+      setLinks(lista);
+
+    })
+
+  }, [])
 
   async function handleRegister(e){
     e.preventDefault();
@@ -115,17 +141,20 @@ export default function Admin(){
         Meus links
       </h2>
 
-    <article 
-      className="list animate-top"
-      style={{ backgroundColor: "#000", color: "#FFF" }}    >
-
-      <p>Grupo exclusivo no telegram</p>
-      <div>
-        <button className="btn-delete">
-          <FiTrash2 size={18} color="#FFF"/>
-        </button>
-      </div>
-    </article>
+    { links.map( (item, index) => (
+      <article
+        key={index} 
+        className="list animate-top"
+        style={{ backgroundColor: item.bg, color: item.color }}
+        >
+        <p>{item.name}</p>
+        <div>
+          <button className="btn-delete">
+            <FiTrash2 size={18} color="#FFF"/>
+          </button>
+        </div>
+      </article>
+    ) )}
 
 
     </div>
