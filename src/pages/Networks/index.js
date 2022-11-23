@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './networks.css'
 
 import { Header } from '../../components/header'
@@ -12,13 +12,33 @@ import {
   getDoc,
  } from 'firebase/firestore'
 
+ import { toast } from 'react-toastify'
+
 export default function Networks() {
   const [facebook, setFacebook] = useState("");
   const [instagram, setInstagram] = useState("");
   const [youtube, setYoutube] = useState("");
 
+  useEffect(() => {
+    function loadLinks(){
+      const docRef = doc(db, "social", "link")
+      getDoc(docRef)
+      .then( (snapshot) => {
 
-  async function handleSave(e){
+        if (snapshot.data() !== undefined) {
+          setFacebook(snapshot.data().facebook)
+          setInstagram(snapshot.data().instagram)
+          setYoutube(snapshot.data().youtube)
+        }
+
+      })
+    }
+
+    loadLinks();
+
+  }, [])
+
+  function handleSave(e){
     e.preventDefault();
     
     setDoc(doc(db, "social", "link"),{
@@ -27,10 +47,10 @@ export default function Networks() {
       youtube: youtube
     })
     .then(() => {
-      console.log("Urls salvas com sucesso!")
+      toast.success("Salvo com sucesso!")
     })
     .catch((error) => {
-      console.log("Erro ao salvar" + error)
+      toast.error(error)
     })
   }
 
@@ -66,6 +86,8 @@ export default function Networks() {
         </button>
 
       </form>
+
+
     </div>
   )  
 }
