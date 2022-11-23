@@ -15,7 +15,7 @@ import {
  import { toast } from 'react-toastify'
 
 export default function Networks() {
-  const [facebook, setFacebook] = useState("");
+  const [linkedin, setLinkedin] = useState("");
   const [instagram, setInstagram] = useState("");
   const [youtube, setYoutube] = useState("");
 
@@ -26,7 +26,7 @@ export default function Networks() {
       .then( (snapshot) => {
 
         if (snapshot.data() !== undefined) {
-          setFacebook(snapshot.data().facebook)
+          setLinkedin(snapshot.data().linkedin)
           setInstagram(snapshot.data().instagram)
           setYoutube(snapshot.data().youtube)
         }
@@ -42,7 +42,7 @@ export default function Networks() {
     e.preventDefault();
     
     setDoc(doc(db, "social", "link"),{
-      facebook: facebook,
+      linkedin: linkedin,
       instagram: instagram,
       youtube: youtube
     })
@@ -62,11 +62,11 @@ export default function Networks() {
       <h1 className='title-social'>Minhas redes sociais</h1>
 
       <form className='form' onSubmit={handleSave}>
-        <label className='label'>Link do Facebook</label>
+        <label className='label'>Link do Linkedin</label>
         <Input
-          placeholder="Digite a url do facebook..."
-          value={facebook}
-          onChange={ (e) => setFacebook(e.target.value) }
+          placeholder="Digite a url do Linkedin..."
+          value={linkedin}
+          onChange={ (e) => setLinkedin(e.target.value) }
         />
          <label className='label'>Link do Instagram</label>
         <Input

@@ -6,7 +6,6 @@ import { Input } from '../../components/input'
 
 import { MdAddLink } from 'react-icons/md'
 import { FiTrash2 } from 'react-icons/fi'
-import { async } from '@firebase/util'
 
 import { db } from '../../services/firebaseConnection'
 import {
@@ -34,7 +33,7 @@ export default function Admin(){
     const linksRef = collection(db, "links")
     const queryRef = query(linksRef, orderBy("created", "asc"))
 
-    const unsub = onSnapshot(queryRef, (snapshot) => {
+    onSnapshot(queryRef, (snapshot) => {
       let lista = [];
 
       snapshot.forEach((doc) => {
@@ -53,7 +52,7 @@ export default function Admin(){
 
   }, [])
 
-  async function handleRegister(e){
+  function handleRegister(e){
     e.preventDefault();
     
     if(nameInput === '' || urlInput === ''){
@@ -71,18 +70,16 @@ export default function Admin(){
     .then(() =>{
       setNameInput('');
       setUrlInput('');
-      console.log('Link registrado com sucesso!');
     })
     .catch((error) => {
-      console.log('ERRO AO REGISTRAR' + error);
       toast.error('Ops, erro ao salvar link!');
     })
 
   }
 
-  async function handleDeleteLink(id) {
+  function handleDeleteLink(id) {
     const docRef = doc(db, "links", id)
-    await deleteDoc(docRef)
+    deleteDoc(docRef)
   }
 
   
@@ -131,7 +128,7 @@ export default function Admin(){
         { nameInput !== '' && (
           <div className='preview'>
             <label className='label'>Veja como está ficando</label>
-            <article className='list' style={{ marginTop: 8, marginTop: 8, backgroundColor: backgroundColorInput }}>
+            <article className='list' style={{ marginTop: 8, backgroundColor: backgroundColorInput }}>
               <p style={{ color: textColorInput }}>{nameInput}</p>
             </article>
           </div>
